@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="background-color: #192257;">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <!--  -->
+  <style>
+    .node circle {
+      fill: #fff;
+      stroke: rgb(202, 42, 42);
+      stroke-width: 1.5px;
+    }
+    
+
+    .node:hover {
+      cursor: pointer;
+      fill: rosybrown;
+      font: 20px sans-serif;
+      font-weight: bolder;
+      display: inline-block;
+    }
+
+    .link {
+      fill: none;
+      stroke: #ccc;
+      stroke-width: 1.5px;
+    }
+    
+  </style>
+  <script>
+    const treeData = {
+      "name": "Tata",
+      "value": 15,
+      "type": "yellow",
+      "level": "yellow",
+      "children": [
+        {
+          "name": "AeroSpace",
+          "value": 10,
+          "type": "grey",
+          "level": "red",
+          "children": [
+            {
+              "name": "Tata Advanced Materials",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Metals",
+          "value": 10,
+          "type": "grey",
+          "level": "red",
+          "children": [
+            {
+              "name": "Tata Steel",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tata Metalinks",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Infra",
+          "value": 10,
+          "type": "grey",
+          "level": "blue",
+          "children": [
+            {
+              "name": "Consulting Engineering Limited",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tata Projects",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tata Housing",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tata Power",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Travel",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Ginger",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Air Asia",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Air India",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Vivanta",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Taj",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Vistara",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Express",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Retail and E-Commerce",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Star Bazar",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Big Basket",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Star Quick",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tata Neu",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Chroma",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "1 Mg",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "CLiQ",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Technology",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Tcs",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Class edge",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Ignio",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Elxsi",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "ION",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Food and Beverages",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Q",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Himalayan",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Soulfull",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "sampann",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tetley",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tea",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "StarBucks",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Salt",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+
+        },
+        {
+          "name": "LifeStyle",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Taneira",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Trent",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "WestSide",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Fastrack",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tanishq",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Titan",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Telecom and Media",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Tele Business service",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Communication",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tejas Networks",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Tata Play",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Automotive",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Tata Motors",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "jaguar",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Land Rover",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Finance",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "AIA",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "AIG",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Capital",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+        {
+          "name": "Durables",
+          "value": 10,
+          "type": "grey",
+          "level": "green",
+          "children": [
+            {
+              "name": "Voltas",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            },
+            {
+              "name": "Pravish",
+              "value": 7.5,
+              "type": "grey",
+              "level": "purple"
+            }
+          ]
+        },
+      ]
+    };
+       
+    // set the dimensions and margins of the diagram
+    const margin = {top: 20, right: 10, bottom: 30, left: 50},
+          width  = 1000 - margin.left - margin.right,
+          height = 600 - margin.top - margin.bottom;
+    const radius = Math.min(width, height) / 2;
+      
+    // declares a cluster layout and assigns the size
+    const cluster = d3.cluster()
+      .size([360, radius]);
+    
+    // assigns the data to a hierarchy using parent-child relationships
+    let nodes = d3.hierarchy(treeData, d => d.children);
+    
+    // maps the node data to the cluster layout
+    cluster(nodes);
+    
+    // append the svg object to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the center of the SVG
+    const svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform",
+                "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+    
+    // adds the links between the nodes
+    const link = svg.selectAll(".link")
+      .data(nodes.descendants().slice(1))
+      .enter().append("path")
+        .attr("class", "link")
+        .style("stroke", d => d.data.level)
+        .style("stroke-width", 1)
+        .style("fill", "none")
+        .attr("d", d => {
+           return "M" + project(d.x, d.y)
+             + "C" + project(d.x, (d.y + d.parent.y) / 2)
+             + " " + project(d.parent.x, (d.y + d.parent.y) / 2)
+             + " " + project(d.parent.x, d.parent.y);
+         });
+    
+    // adds each node as a group
+    const node = svg.selectAll(".node")
+      .data(nodes.descendants())
+      .enter().append("g")
+      .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
+      .attr("transform", d => "translate(" + project(d.x, d.y) + ")");
+    
+    // adds the circle to the node
+    node.append("circle")
+      .attr("r", d => d.data.value)
+      .style("stroke", d => d.data.type)
+      .style("fill", d => d.data.level);
+    
+    // adds the text to the node
+    node.append("text")
+      .attr("dy", ".35em")
+      .attr("x", d => d.children ? (d.data.value + 5) * -1 : d.data.value + 5)
+      .attr("y", d => d.children && d.depth !== 0 ? -(d.data.value + 5) : d)
+      .style("text-anchor", d => d.children ? "end" : "start")
+      .text(d => d.data.name)
+      .on("mouseover", function(event, d) {
+        d3.select(this).style("display", "block");
+      });
+      
+
+    // Function to convert polar coordinates to Cartesian coordinates
+    function project(x, y) {
+      const angle = (x - 90) / 180 * Math.PI;
+      const radius = y;
+      return [radius * Math.cos(angle), radius * Math.sin(angle)];
+    }
+  </script>
+</body>
+</html>
+
