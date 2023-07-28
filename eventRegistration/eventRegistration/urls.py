@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
+from userapp.views import formsPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('forms/',formsPage, name="formspage")
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

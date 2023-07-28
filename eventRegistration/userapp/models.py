@@ -29,6 +29,12 @@ class CustomUser(AbstractUser):
         # import pdb
         # pdb.set_trace()
         if self.gender == "male":
+            self.photo = "male.png"
+        
+        elif self.gender == "female":
+            self.photo = "female.png"
+        
+        else:
             self.photo = "test.png"
         
         super().save(*args, **kwargs)
